@@ -1,8 +1,13 @@
+import { ChakraProvider } from '@chakra-ui/react'
+import { theme } from './styles/theme';
+
 function App() {
   return (
-    <div>
-      <p>teste</p>
-    </div>
+    <ChakraProvider theme={theme}>
+      <div>
+        <p>teste</p>
+      </div>
+    </ChakraProvider>
   );
 }
 
