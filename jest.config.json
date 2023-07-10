@@ -1,0 +1,25 @@
+{
+  "testEnvironment": "jsdom",
+  "transform": {
+    "^.+\\.tsx?$": "ts-jest"
+  },
+  "setupFilesAfterEnv": [
+    "@testing-library/jest-dom/extend-expect"
+  ],
+  "modulePaths": [
+    "<rootDir>/src/",
+    "<rootDir>.jest"
+  ],
+  "testPathIgnorePatterns": [
+    "/node_modules/"
+  ],
+  "moduleNameMapper": {
+    "^component/(.*)$": "<rootDir>/src/components/$1",
+    "^styles/(.*)$": "<rootDir>/src/styles/$1",
+    "^context/(.*)$": "<rootDir>/src/styles/$1",
+    "^pages/(.*)$": "<rootDir>/src/styles/$1",
+    "^hooks/(.*)$": "<rootDir>/src/styles/$1",
+    "^services/(.*)$": "<rootDir>/src/styles/$1",
+    "^utils/(.*)$": "<rootDir>/src/styles/$1"
+  }
+}

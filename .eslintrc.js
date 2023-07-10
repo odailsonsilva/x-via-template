@@ -9,7 +9,7 @@ module.exports = {
     'prettier',
     'airbnb-base',
   ],
-  plugins: ['react-hooks'],
+  plugins: ['jest', 'testing-library', 'react-hooks'],
   overrides: [],
   parserOptions: {
     ecmaVersion: 'latest',
@@ -24,5 +24,7 @@ module.exports = {
     'import/prefer-default-export': 'off',
     'import/extensions': 'off',
     'import/no-unresolved': 'off',
+    indent: ['error', 2],
+    quotes: ['error', 'single'],
   },
 };
