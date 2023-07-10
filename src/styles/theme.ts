@@ -1,3 +1,5 @@
-import { extendBaseTheme } from "@chakra-ui/react";
+import { extendBaseTheme } from '@chakra-ui/react';
 
-export const theme = extendBaseTheme({})
+export default extendBaseTheme({
+  component: {},
+});
