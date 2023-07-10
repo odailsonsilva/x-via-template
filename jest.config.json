@@ -3,12 +3,13 @@
   "transform": {
     "^.+\\.tsx?$": "ts-jest"
   },
+  "collectCoverage": true,
   "setupFilesAfterEnv": [
     "@testing-library/jest-dom/extend-expect"
   ],
   "modulePaths": [
     "<rootDir>/src/",
-    "<rootDir>.jest"
+    "<rootDir>/.jest"
   ],
   "testPathIgnorePatterns": [
     "/node_modules/"
@@ -16,10 +17,18 @@
   "moduleNameMapper": {
     "^component/(.*)$": "<rootDir>/src/components/$1",
     "^styles/(.*)$": "<rootDir>/src/styles/$1",
-    "^context/(.*)$": "<rootDir>/src/styles/$1",
-    "^pages/(.*)$": "<rootDir>/src/styles/$1",
-    "^hooks/(.*)$": "<rootDir>/src/styles/$1",
-    "^services/(.*)$": "<rootDir>/src/styles/$1",
-    "^utils/(.*)$": "<rootDir>/src/styles/$1"
+    "^context/(.*)$": "<rootDir>/src/context/$1",
+    "^pages/(.*)$": "<rootDir>/src/pages/$1",
+    "^hooks/(.*)$": "<rootDir>/src/hooks/$1",
+    "^services/(.*)$": "<rootDir>/src/services/$1",
+    "^utils/(.*)$": "<rootDir>/src/utils/$1"
+  },
+  "coverageThreshold": {
+    "global": {
+      "statements": 80,
+      "branches": 80,
+      "functions": 80,
+      "lines": 80
+    }
   }
 }
