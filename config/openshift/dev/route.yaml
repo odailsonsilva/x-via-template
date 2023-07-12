@@ -1,0 +1,24 @@
+---
+apiVersion: route.openshift.io/v1
+kind: Route
+metadata:
+  labels:
+    app: seduc-xvia-boletim
+  name: seduc-xvia-boletim-route
+spec:
+  host: seduc-xvia-boletim.dev.apps.ocp.ati.pi.gov.br
+  to:
+    kind: Service
+    name: seduc-xvia-boletim-service
+    weight: 100
+  port:
+    targetPort: http
+  tls:
+    termination: edge
+    insecureEdgeTerminationPolicy: Redirect
+  wildcardPolicy: None
+status:
+  ingress:
+    - host: seduc-xvia-boletim.dev.apps.ocp.ati.pi.gov.br
+      routerName: router
+      wildcardPolicy: None

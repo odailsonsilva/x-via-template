@@ -1,0 +1,32 @@
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: seduc-xvia-boletim
+  labels:
+    app: seduc-xvia-boletim
+  annotations:
+    image.openshift.io/triggers: >-
+      [{"from":{"kind":"ImageStreamTag","name":"seduc-xvia-boletim:latest","namespace":"ati-pi-xvia-backstage-dev-td"},"fieldPath":"spec.template.spec.containers[?(@.name==\"seduc-xvia-boletim-container\")].image","pause":"false"}]
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: seduc-xvia-boletim
+  template:
+    metadata:
+      labels:
+        app: seduc-xvia-boletim
+    spec:
+      containers:
+        - name: seduc-xvia-boletim-container
+          image: image-registry.openshift-image-registry.svc:5000/ati-pi-xvia-backstage-dev-td/seduc-xvia-boletim:latest
+          envFrom:
+            - configMapRef:
+                name: seduc-xvia-boletim-cfg
+          livenessProbe:
+            httpGet:
+              path: /
+              port: 8080
+            initialDelaySeconds: 60
+            periodSeconds: 60

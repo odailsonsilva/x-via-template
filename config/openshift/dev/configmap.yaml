@@ -1,0 +1,10 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: seduc-xvia-boletim-cfg
+  labels:
+    app: seduc-xvia-boletim
+data:
+  NODE_ENV: "production"
+  PUBLIC_URL: "https://dev.pidigital.pi.gov.br/static-content/seduc-xvia-boletim"
+  PORTAL_URL: "https://dev.pidigital.pi.gov.br"

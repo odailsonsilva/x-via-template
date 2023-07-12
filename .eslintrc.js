@@ -26,5 +26,7 @@ module.exports = {
     'import/no-unresolved': 'off',
     indent: ['error', 2],
     quotes: ['error', 'single'],
+    'import/no-extraneous-dependencies': 'off',
+    'no-param-reassign': 'off',
   },
 };

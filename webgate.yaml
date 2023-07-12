@@ -1,0 +1,90 @@
+apiVersion: v2
+portal:
+  version:
+  # The portal URL in production
+  portalUrl: ${PORTAL_URL}
+
+  # Uma versão dev do portal pode ser usada durante o desenvolvimento para recursos que requerem o contêiner do portal
+  # em execução (como token de acesso do usuário e informações de perfil). Nesses casos, o integrationType pode ser definido como 
+  # iframe para permitir hot-reload e desenvolvimento mais rápido. Observação: é altamente recomendável testar os recursos com 
+  # `integrationType: bundle` tipo de integração antes de publicar o aplicativo para produção
+  devServer:
+    # A URL do Portal (local development instance)
+    portalUrl: http://localhost:7004
+    # Tipo de integração (iframe will enable hot reload)
+    integrationType: bundle
+
+  # Informações que serão utilizadas para registrar esta aplicação no portal (desenvolvimento e produção). 
+  application:
+    # Nome da Aplicação
+    name: 'SEDUC Boletim'
+
+    # Description
+    description: 'Aplicação para consulta de notas de alunos'
+
+    # O tipo de integração (bundle ou iframe). bundle é o tipo de integração recomendado, mas algumas
+    # aplicações podem não funcionar imediatamente com a integração de bundle. Nesse caso, o iframe
+    # pode ser usado como solução de contorno. Observação: o aplicativo deve ter uma URL pública para usar iframe
+    integrationType: bundle
+
+    # A slug da categoria. Utilizada para agrupas as aplicações.
+    category: educacao-e-pesquisa
+
+    # A URL única amigável aplicativo quando publicado no portal. Utilizada para gerar a URL externa da aplicação
+    # Ex: https://<portal-url>/app/minha-aplicacao
+    basePath: 'seduc-xvia-boletim'
+
+    # A url interna da aplicação.
+    internalUrl: ${INTERNAL_URL}
+
+    # Define se esta aplicação não deve ser mostrada na busca de serviços e dashboards.
+    # Aplicações com `hidden: true` só são acessíveis diretamente via URL pública
+    hidden: false
+
+    # Valor que define se esta aplicação não precisa de um usuário autenticado para carregar. Ao marcar esta propriedade como falso, o usuário
+    # é redirecionado para a tela de login antes de carregar esta aplicação no portal e a aplicação pode considerar que exite um usuário logado.
+    # Ao marcar esta propriedade como false, o access token e as informações do usuário são injetadas na aplicação através da biblioteca webgate-connect
+    public: true
+
+    # Restringe o acesso apenas à usuários autenticados que possuem roles específicas no perfil (informações sobre roles são definidas no Login Único)
+    # allowedRoles:
+    #  - detran-valid-user
+
+    # Restringe o acesso apenas à usuários autenticados que fazem parte dos grupos especificados (informações sobre grupos são definidas no Login Único)
+    # allowedGroups:
+    #  - superusers
+    #  - admins
+
+    # Restringe o acesso apenas à tokens de acesso cujo cliente possua os scopos definidos abaixo (informações sobre escopos são definidas no Login Único)
+    # allowedScopes:
+    #  - portal-publisher
+
+    # O público alvo desta aplicação. Utilizada para categorização na busca de serviços
+    target: 'cidadao'
+
+    # As plataformas em que este serviço estarão disponíveis
+    platforms: web,web
+
+    # As palavras chaves. Utilizada para categorização na busca de serviços
+    tags:
+      - servico-digital
+
+  # endpoints:
+  #  # A URL única amigável aplicativo quando publicado no portal. Utilizada para gerar a URL externa da api
+  #  # Ex: https://<portal-url>/api/minha-api
+  #  - path: "cnh"
+  #    # Endereço para onde as requisições para a URL pública da API serão encaminhadas
+  #    proxyTo: "https://minha-api-interna.apps.ocp.ati.pi.gov.br"
+  #    # Define se esta API precisa de um access token válido
+  #    public: false
+  #    # Define se erros de TLS 
+  #    skipTls: true
+
+
+  # As credenciais precisam ser fornecidas para publicar o aplicativo em uma versão de produção do portal.
+  # Recomenda-se injetar as credenciais das variáveis ​​de ambiente definidas no CI/CD em vez de
+  # escritas diretamente no código-fonte
+  credentials:
+    tokenUrl: ${SMARTPASS_TOKEN_URL}
+    clientId: ${PORTAL_PUBLISHER_CLIENT_ID}
+    secret: ${PORTAL_PUBLISHER_SECRET}

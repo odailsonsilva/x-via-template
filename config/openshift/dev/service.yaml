@@ -1,0 +1,16 @@
+---
+apiVersion: "v1"
+kind: "Service"
+metadata:
+  name: seduc-xvia-boletim-service
+  labels:
+    app: seduc-xvia-boletim
+spec:
+  ports:
+  - name: http
+    protocol: "TCP"
+    port: 80
+    targetPort: 8080
+  selector:
+    app: seduc-xvia-boletim
+  type: "ClusterIP"
