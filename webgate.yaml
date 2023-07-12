@@ -5,16 +5,17 @@ portal:
   portalUrl: ${PORTAL_URL}
 
   # Uma versão dev do portal pode ser usada durante o desenvolvimento para recursos que requerem o contêiner do portal
-  # em execução (como token de acesso do usuário e informações de perfil). Nesses casos, o integrationType pode ser definido como 
-  # iframe para permitir hot-reload e desenvolvimento mais rápido. Observação: é altamente recomendável testar os recursos com 
+  # em execução (como token de acesso do usuário e informações de perfil). Nesses casos, o integrationType pode ser definido como
+  # iframe para permitir hot-reload e desenvolvimento mais rápido. Observação: é altamente recomendável testar os recursos com
   # `integrationType: bundle` tipo de integração antes de publicar o aplicativo para produção
   devServer:
     # A URL do Portal (local development instance)
     portalUrl: http://localhost:7004
     # Tipo de integração (iframe will enable hot reload)
-    integrationType: bundle
+    # integrationType: bundle
+    integrationType: iframe
 
-  # Informações que serão utilizadas para registrar esta aplicação no portal (desenvolvimento e produção). 
+  # Informações que serão utilizadas para registrar esta aplicação no portal (desenvolvimento e produção).
   application:
     # Nome da Aplicação
     name: 'SEDUC Boletim'
@@ -25,7 +26,8 @@ portal:
     # O tipo de integração (bundle ou iframe). bundle é o tipo de integração recomendado, mas algumas
     # aplicações podem não funcionar imediatamente com a integração de bundle. Nesse caso, o iframe
     # pode ser usado como solução de contorno. Observação: o aplicativo deve ter uma URL pública para usar iframe
-    integrationType: bundle
+    # integrationType: bundle
+    integrationType: iframe
 
     # A slug da categoria. Utilizada para agrupas as aplicações.
     category: educacao-e-pesquisa
@@ -77,7 +79,7 @@ portal:
   #    proxyTo: "https://minha-api-interna.apps.ocp.ati.pi.gov.br"
   #    # Define se esta API precisa de um access token válido
   #    public: false
-  #    # Define se erros de TLS 
+  #    # Define se erros de TLS
   #    skipTls: true
 
 
