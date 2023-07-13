@@ -1,0 +1,74 @@
+stages:
+  - build
+  - build-docker
+  - deploy
+
+variables:
+  ENTITY_NAME: seduc-xvia-boletim
+  DESTINATION_OWNER: pidigital/seduc
+  DEPLOYMENT_TARGET: openshift
+
+
+### OPENSHIFT DEPLOY
+
+build-dev:
+  stage: build
+  image: node:18-alpine
+  variables:
+    PORTAL_URL: "${PORTAL_URL_DEV}"
+    SMARTPASS_TOKEN_URL: "${SMARTPASS_TOKEN_URL_DEV}"
+    PORTAL_PUBLISHER_CLIENT_ID: ${PORTAL_PUBLISHER_CLIENT_ID_DEV}
+    PORTAL_PUBLISHER_SECRET: ${PORTAL_PUBLISHER_SECRET_DEV}
+    INTERNAL_URL: "https://${CI_PROJECT_NAME}.${INTERNAL_URL_DEV}"
+
+    CI: "false"
+    NODE_TLS_REJECT_UNAUTHORIZED: "0"
+
+  script:
+    - tar -xzvf fonts.tar.gz && rm fonts.tar.gz
+    - yarn install --frozen-lockfile
+    - yarn build
+    - yarn portal:publish
+  only:
+    refs:
+      - develop
+  artifacts:
+    paths:
+      - yarn.lock
+      - package.json
+      - build
+
+
+build-docker-dev:
+  stage: build-docker
+  image:
+    name: gcr.io/kaniko-project/executor:v1.9.0-debug
+    entrypoint: [""]
+  variables:
+    CI_REGISTRY: $OPENSHIFT_REGISTRY_URL
+    CI_REGISTRY_USER: unused
+    CI_REGISTRY_PASSWORD: $OPENSHIFT_DEV_TOKEN_BUILDER
+  before_script:
+    - echo "$OPENSHIFT_REGISTRY_CERTIFICATE" >> /kaniko/ssl/certs/additional-ca-cert-bundle.crt
+  script:
+    - /kaniko/executor
+      --context "${CI_PROJECT_DIR}"
+      --dockerfile "${CI_PROJECT_DIR}/Dockerfile"
+      --destination "$OPENSHIFT_REGISTRY_URL/$OPENSHIFT_DEV_NAMESPACE/$CI_PROJECT_NAME:latest"
+      --build-arg PORTAL_URL="$PORTAL_URL"
+
+
+  only:
+    refs:
+      - develop
+
+deploy-dev:
+  stage: deploy
+  image: openshift/origin-cli
+  script:
+    - oc login --insecure-skip-tls-verify=true --token=$OPENSHIFT_DEV_TOKEN_PIPELINE --server=$OPENSHIFT_API_SERVER
+    - oc apply -f config/openshift/dev -n $OPENSHIFT_DEV_NAMESPACE
+  only:
+    refs:
+      - develop
+

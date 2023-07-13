@@ -1,0 +1,10 @@
+site_name: seduc-xvia-boletim
+site_description: Aplicação para consulta de notas de alunos
+repo_url: https://github.com/pidigital/seduc/seduc-xvia-boletim
+edit_uri: edit/master/docs
+
+nav:
+  - Início: index.md
+
+plugins:
+  - techdocs-core

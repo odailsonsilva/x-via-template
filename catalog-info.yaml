@@ -1,0 +1,23 @@
+apiVersion: backstage.io/v1alpha1
+kind: Component
+metadata:
+  name: "seduc-xvia-boletim"
+  description: "Aplicação para consulta de notas de alunos"
+  annotations:
+    github.com/project-slug: pidigital/seduc/seduc-xvia-boletim
+    'backstage.io/kubernetes-label-selector': 'app=seduc-xvia-boletim'
+    sonarqube.org/project-key: pidigital/seduc_seduc-xvia-boletim
+    backstage.io/techdocs-ref: dir:.
+    backstage.io/code-coverage: scm-only
+  links:
+    - url: https://dev.pidigital.pi.gov.br/app/seduc-xvia-boletim
+      title: Public URL
+      icon: public
+
+    - url: https://seduc-xvia-boletim.apps.ocp.ati.pi.gov.br
+      title: Internal URL
+      icon: LockOpen
+spec:
+  type: website
+  owner: "user:default/andre.oliveira"
+  lifecycle: desenvolvimento
