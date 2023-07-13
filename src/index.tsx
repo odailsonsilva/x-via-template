@@ -1,5 +1,6 @@
 import React from 'react';
 import ReactDOM from 'react-dom/client';
+import { BrowserRouter } from 'react-router-dom';
 import { WebgateProvider as _WebgateProvider } from '@xvia/webgate-connect';
 import App from './App';
 
@@ -11,8 +12,10 @@ const root = ReactDOM.createRoot(
 
 root.render(
   <React.StrictMode>
-    <WebgateProvider portalUrl={process.env.PORTAL_URL as string}>
-      <App />
-    </WebgateProvider>
+    <BrowserRouter basename={'/'}>
+      <WebgateProvider portalUrl={process.env.PORTAL_URL as string}>
+        <App />
+      </WebgateProvider>
+    </BrowserRouter>
   </React.StrictMode>,
 );
