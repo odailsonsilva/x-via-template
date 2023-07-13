@@ -28,5 +28,6 @@ module.exports = {
     quotes: ['error', 'single'],
     'import/no-extraneous-dependencies': 'off',
     'no-param-reassign': 'off',
+    'global-require': 'off',
   },
 };
